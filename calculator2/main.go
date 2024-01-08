@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 )
 
@@ -25,6 +26,11 @@ func (c Calculator) Divide(a, b float64) (float64, error) {
 		return 0, fmt.Errorf("Деление на ноль недопустимо")
 	}
 	return a / b, nil
+}
+
+func round(num float64, decimalPlaces int) float64 {
+	precision := math.Pow(10, float64(decimalPlaces))
+	return math.Round(num*precision) / precision
 }
 
 func main() {
@@ -75,7 +81,8 @@ func main() {
 		return
 	}
 
-	resultStr := strconv.FormatFloat(result, 'f', 7, 64)
+	roundedResult := round(result, 8)
+	resultStr := strconv.FormatFloat(roundedResult, 'f', -1, 64)[:9]
 
 	fmt.Println("Результат:", resultStr)
 }
