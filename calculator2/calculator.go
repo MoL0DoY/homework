@@ -1,47 +1,36 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
+
+const (
+	COMPLEX = "complex"
+	NUMERIC = "numeric"
+)
 
 type Calculator struct {
+	Type     string
+	Operator string
+	A        IExpression
+	B        IExpression
 }
 
-func (c Calculator) Add(a, b float64) float64 {
-	return a + b
-}
-
-func (c Calculator) Subtract(a, b float64) float64 {
-	return a - b
-}
-
-func (c Calculator) Multiply(a, b float64) float64 {
-	return a * b
-}
-
-func (c Calculator) Divide(a, b float64) (float64, error) {
-	if b == 0 {
-		return 0, fmt.Errorf("Деление на ноль недопустимо")
+func (c *Calculator) Execute() (*IExpression, error) {
+	switch c.Operator {
+	case "+":
+		return c.A.Add(c.B), nil
+	case "-":
+		return c.A.Sub(c.B), nil
+	case "*":
+		return c.A.Mul(c.B), nil
+	case "/":
+		return c.A.Div(c.B), nil
 	}
-	return a / b, nil
+
+	return nil, fmt.Errorf("ошибка оператора")
 }
 
-type ComplexCalculator struct{}
-
-func (c ComplexCalculator) Add(a, b complex128) complex128 {
-	return a + b
-}
-
-func (c ComplexCalculator) Subtract(a, b complex128) complex128 {
-	return a - b
-}
-
-func (c ComplexCalculator) Multiply(a, b complex128) complex128 {
-	return a * b
-}
-
-func (c ComplexCalculator) Divide(a, b complex128) (complex128, error) {
-	if b == 0 {
-		return 0, fmt.Errorf("Деление на ноль недопустимо")
-	}
-	return a / b, nil
+func complexCalculator() {
 
 }

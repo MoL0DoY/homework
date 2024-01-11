@@ -5,6 +5,5 @@ type IExpression interface {
 	Sub(a IExpression) *IExpression
 	Mul(a IExpression) *IExpression
 	Div(a IExpression) *IExpression
-	Value() float64
-	Value1() complex128
+	ToString() string
 }
